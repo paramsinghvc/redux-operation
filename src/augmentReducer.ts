@@ -8,10 +8,8 @@ export const augmentReducer = <S, A extends IAction<Symbol | string, any>>(
         const nextRootState = rootReducer(state, action);
         Object.assign(nextState, nextRootState);
         for (const [key, reducer] of Object.entries(reducers)) {
-            if (state) {
-                const nextStateForKey = reducer(state[key], action);
-                nextState[key] = nextStateForKey;
-            }
+            const nextStateForKey = reducer(state && state[key], action);
+            nextState[key] = nextStateForKey;
         }
         return nextState;
     };
