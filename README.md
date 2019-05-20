@@ -21,7 +21,7 @@
     <a href="https://www.npmjs.com/package/@mollycule/redux-operation"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://codesandbox.io/s/typescript-redux-3bb54?fontsize=14">View Demo</a>
+    <a href="https://codesandbox.io/s/redux-operation-example-pptq2?fontsize=14">View Demo</a>
     ·
     <a href="https://github.com/paramsinghvc/redux-operation/issues">Report Bug</a>
     ·
@@ -49,8 +49,6 @@
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 A utility to simplify creation of redux operations like loading, success, failure automatically.
 
@@ -80,8 +78,7 @@ npm i @mollycule/redux-operation -S
 1. Wrap the root app component with `redux-hook` provider by calling `createStoreContext<IRootState>` while specifying the shape of Redux App RootState into Generic Parameter.
 
 ```ts
-import {
-  createReduxOperation,
+import createReduxOperation, {
   actionFlags,
   augmentReducer,
   IReduxOperations,
@@ -104,7 +101,10 @@ const initialState = {
   metaProp: ""
 };
 
-const loginReducer = (state = initialState, action: IAction<Symbol, any>) => {
+const loginReducer = (
+  state = initialState,
+  action: IAction<Symbol | string, any>
+) => {
   switch (action.type) {
     case authConstants.get(actionFlags.REQUEST):
       return {
