@@ -1,6 +1,6 @@
 {
   "name": "@mollycule/redux-operation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A utility to simplify creation of redux operations like loading, success, failure automatically",
   "author": {
     "name": "Param Singh",
