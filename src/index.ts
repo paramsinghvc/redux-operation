@@ -1,5 +1,8 @@
 import { IConstants, IAction, IActionCreator } from './types';
 
+export * from './augmentReducer';
+export * from './types';
+
 export const createActionWithPayload: IActionCreator<Symbol | string, any> = <
     T extends Symbol | string,
     P
@@ -41,7 +44,7 @@ export enum actionFlags {
     FAILURE = "FAILURE"
 }
 
-export const createReduxOperation = (actionName: string) => {
+const createReduxOperation = (actionName: string) => {
     /**
      * Will generate constants map in the form of { SUCCESS: Symbol('FETCH_DATA_SUCCESS') }
      */
@@ -89,3 +92,5 @@ export const createReduxOperation = (actionName: string) => {
         reducer
     };
 };
+
+export default createReduxOperation;

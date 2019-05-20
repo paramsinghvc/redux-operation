@@ -1,4 +1,6 @@
 import { IConstants, IAction, IActionCreator } from './types';
+export * from './augmentReducer';
+export * from './types';
 export declare const createActionWithPayload: IActionCreator<Symbol | string, any>;
 /**
  * Outputs a Map of string as keys and Symbol | strings as it's values. For eg
@@ -20,7 +22,7 @@ export declare enum actionFlags {
     SUCCESS = "SUCCESS",
     FAILURE = "FAILURE"
 }
-export declare const createReduxOperation: (actionName: string) => {
+declare const createReduxOperation: (actionName: string) => {
     constants: IConstants;
     actions: ((payload?: any) => IAction<string | Symbol, any>)[];
     reducer: (state: IReduxOperations, { type, payload }: {
@@ -28,3 +30,4 @@ export declare const createReduxOperation: (actionName: string) => {
         payload?: any;
     }) => IReduxOperations;
 };
+export default createReduxOperation;

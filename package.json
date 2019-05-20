@@ -13,10 +13,8 @@
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "webpack",
-    "build:dev": "webpack --mode development",
-    "build:types": "tsc --emitDeclarationOnly",
-    "analyse": "ANALYSE=true webpack"
+    "build": "npm run build:types && parcel build ./src/index.ts",
+    "build:types": "tsc --emitDeclarationOnly"
   },
   "keywords": [
     "react",
@@ -32,14 +30,9 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "acorn": "^6.1.1",
-    "clean-webpack-plugin": "^2.0.2",
-    "path": "^0.12.7",
-    "ts-loader": "^6.0.1",
-    "typescript": "^3.4.5",
-    "webpack": "^4.31.0",
-    "webpack-bundle-analyzer": "^3.3.2",
-    "webpack-cli": "^3.3.2"
+    "parcel-bundler": "^1.12.3",
+    "parcel-plugin-bundle-visualiser": "^1.2.0",
+    "typescript": "^3.4.5"
   },
   "dependencies": {},
   "peerDependencies": {}

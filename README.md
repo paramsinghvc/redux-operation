@@ -10,7 +10,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/paramsinghvc/redux-operation">
-    <img src="https://user-images.githubusercontent.com/4329912/57970576-72d80a00-79a0-11e9-81c3-57465a997044.png" alt="Logo" width="80" height="80">
+    <img src="https://user-images.githubusercontent.com/4329912/57995433-a1103380-7adf-11e9-9001-d76b38ec6dea.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Create Redux Operation</h3>
@@ -18,7 +18,7 @@
   <p align="center">
     A utility to simplify creation of redux operations like loading, success, failure automatically
     <br />
-    <a href="https://www.npmjs.com/package/@mollycule/redux-hook"><strong>Explore the docs »</strong></a>
+    <a href="https://www.npmjs.com/package/@mollycule/redux-operation"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://codesandbox.io/s/typescript-redux-3bb54?fontsize=14">View Demo</a>
@@ -27,7 +27,7 @@
     ·
     <a href="https://github.com/paramsinghvc/redux-operation/issues">Request Feature</a>
     .
-    <a href="https://www.npmjs.com/package/@mollycule/redux-hook">NPM Link</a>
+    <a href="https://www.npmjs.com/package/@mollycule/redux-operation">NPM Link</a>
   </p>
 </p>
 
@@ -57,7 +57,7 @@ A utility to simplify creation of redux operations like loading, success, failur
 ### Built With
 
 - [TypeScript](https://www.typescriptlang.org/)
-- [Webpack](https://webpack.js.org/)
+- [ParcelJS](https://parceljs.org/)
 
 <!-- GETTING STARTED -->
 
@@ -65,15 +65,12 @@ A utility to simplify creation of redux operations like loading, success, failur
 
 ### Prerequisites
 
-Following Peer Dependencies are required for using redux-operation package:
-
-- react: "^16.8.6",
-- redux: "^4.0.1"
+- Redux
 
 ### Installation
 
 ```sh
-npm i @mollycule/redux-hook -S
+npm i @mollycule/redux-operation -S
 ```
 
 <!-- USAGE EXAMPLES -->
@@ -82,66 +79,51 @@ npm i @mollycule/redux-hook -S
 
 1. Wrap the root app component with `redux-hook` provider by calling `createStoreContext<IRootState>` while specifying the shape of Redux App RootState into Generic Parameter.
 
-```tsx
-import { createStoreContext } from "@mollycule/redux-hook";
+```ts
+import {
+  createReduxOperation,
+  actionFlags,
+  augmentReducer,
+  IReduxOperations,
+  IAction
+} from "@mollycule/redux-operation";
 
-const { Provider } = createStoreContext<IRootState>();
+const {
+  actions: [authRequest, authSuccess, authFailure],
+  constants: authConstants,
+  reducer: authenticationReducer
+} = createReduxOperation("AUTHENTICATE");
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <MainComponent />
-      </Provider>
-    );
-  }
+export { authSuccess, authRequest, authFailure };
+
+export interface ILoginState {
+  metaProp: string;
 }
 
-export default App;
-```
-
-2. Now, we can simply use the `useRedux` hook anywhere in our app functional components as
-
-```tsx
-import useRedux from "@mollycule/redux-hook";
-import { incrementCount, decrementCount, setIsLoading } from "./actions";
-
-const MyComponent = props => {
-  const mapStateToProps = state => ({
-    count: state.count,
-    isLoading: state.isLoading
-  });
-  const mapDispatchToProps = {
-    incrementCount,
-    decrementCount,
-    setIsLoading
-  };
-  const mappedProps = useRedux(mapStateToProps, mapDispatchToProps);
-  const { count, incrementCounter, setIsLoading } = mappedProps;
-  return (
-    <p onClick={incrementCount} onMouseOver={() => setIsLoading(true)}>
-      {count}
-    </p>
-  );
+const initialState = {
+  metaProp: ""
 };
-```
 
-**Note**: For `mapDispatchToProps`, we can pass a normal function as well that accepts dispatch and returns an object of dispatch bound actions from it as
-
-```ts
-const mapDispatchToProps = dispatch => ({
-  authenticateUser: () => {
-    dispatch({
-      type: "AUTHENTICATE_USER"
-    });
-  },
-  setIsLoading: (status: boolean) => {
-    dispatch(setIsLoading(status));
+const loginReducer = (state = initialState, action: IAction<Symbol, any>) => {
+  switch (action.type) {
+    case authConstants.get(actionFlags.REQUEST):
+      return {
+        ...state,
+        metaProp: "SET NOW"
+      };
+    default:
+      return state;
   }
+};
+
+export interface ILoginStateAugmented extends ILoginState {
+  auth: IReduxOperations;
+}
+
+export default augmentReducer(loginReducer)({
+  auth: authenticationReducer
 });
 ```
-
-Passing simply an object of actions, automatically bind them to dispatch using redux [`bindActionCreators`](https://redux.js.org/api/bindactioncreators). Also, you can even skip the second paramter of useRedux hook if you just want to access the props from the store.
 
 <!-- CONTRIBUTING -->
 
