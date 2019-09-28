@@ -1,10 +1,5 @@
 export declare type IReducer<S, A extends IAction<symbol | string, any>> = (state: S, action: A) => S;
-export interface IConstants extends Map<string, symbol | string> {
-}
-export interface IKeyValueType {
-    value: string;
-    displayName: string;
-    hintText?: string;
+export interface IConstants extends Map<string, symbol> {
 }
 export interface IAction<T extends symbol | string, P = any> {
     type: T;
