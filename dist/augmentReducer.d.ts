@@ -1,4 +1,5 @@
-import { IAction, IReducer } from './types';
-export declare const augmentReducer: <S, A extends IAction<string | Symbol, any>>(rootReducer: IReducer<any, A>) => (reducers: {
+import { IAction } from "./types";
+import { IReducer } from "./";
+export declare const augmentReducer: <S, A extends IAction<string | symbol, any>>(rootReducer: IReducer<any, A>) => (reducers: {
     [k: string]: IReducer<any, A>;
-}) => (state: S, action: A) => {};
+}) => (state: S, action: A) => S;

@@ -103,7 +103,7 @@ const initialState = {
 
 const loginReducer = (
   state = initialState,
-  action: IAction<Symbol | string, any>
+  action: IAction<symbol | string, any>
 ) => {
   switch (action.type) {
     case authConstants.get(actionFlags.REQUEST):

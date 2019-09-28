@@ -1,33 +1,25 @@
-import { IConstants, IAction, IActionCreator } from './types';
-export * from './augmentReducer';
-export * from './types';
-export declare const createActionWithPayload: IActionCreator<Symbol | string, any>;
-/**
- * Outputs a Map of string as keys and Symbol | strings as it's values. For eg
- * {
- *    foo: Symbol('bar'),
- *    baz: Symbol('bax'),
- * }
- * @param constants [['foo', 'bar'], ['baz', 'bax']]
- */
-export declare const makeConstantsWithKeys: (constants: string[][]) => IConstants;
-export interface IReduxOperations {
+import { IAction, IActionFactory } from "./types";
+export * from "./augmentReducer";
+export * from "./types";
+export declare const createActionWithPayload: <T extends string | symbol, P>(type: T) => (payload?: P) => IAction<T, P>;
+export interface IReduxOperations<T = any> {
     pending: boolean;
     success: boolean;
     failure: boolean;
     errors: any;
+    payload: T;
 }
 export declare enum actionFlags {
     REQUEST = "REQUEST",
     SUCCESS = "SUCCESS",
-    FAILURE = "FAILURE"
+    FAILURE = "FAILURE",
+    CLEAR = "CLEAR"
 }
-declare const createReduxOperation: (actionName: string) => {
-    constants: IConstants;
-    actions: ((payload?: any) => IAction<string | Symbol, any>)[];
-    reducer: (state: IReduxOperations, { type, payload }: {
+export declare const createReduxOperation: (actionName: string) => {
+    constants: import("./makeConstants").IConstants;
+    actions: IActionFactory<symbol, unknown>[];
+    reducer: (state: IReduxOperations<any>, { type, payload }: {
         type: any;
         payload?: any;
-    }) => IReduxOperations;
+    }) => IReduxOperations<any>;
 };
-export default createReduxOperation;
