@@ -3,6 +3,7 @@ import { makeConstantsWithKeys } from "./makeConstants";
 
 export * from "./augmentReducer";
 export * from "./types";
+export * from "./makeConstants";
 
 export const createActionWithPayload = <T extends symbol | string, P>(
   type: T

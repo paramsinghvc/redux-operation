@@ -1,4 +1,4 @@
-export interface IConstants extends Map<string, symbol> {}
+import { IConstants } from "./types";
 
 /**
  * Outputs a Map of string as keys and Symbols as it's values. For eg
