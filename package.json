@@ -7,13 +7,13 @@
     "email": "paramsinghvc@gmail.com",
     "url": "http://paramsinghvc.github.io"
   },
-  "repository": "https://github.com/paramsinghvc/redux-operations.git",
-  "homepage": "https://github.com/paramsinghvc/redux-operations#readme",
+  "repository": "https://github.com/paramsinghvc/redux-operation.git",
+  "homepage": "https://github.com/paramsinghvc/redux-operation#readme",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "npm run build:types && parcel build ./src/index.ts",
+    "build": "npm run build:types && parcel build ./src/index.ts && sed -i '' '1s;^;var ;' dist/index.js",
     "build:types": "tsc --emitDeclarationOnly"
   },
   "keywords": [
@@ -30,10 +30,9 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "parcel-bundler": "^1.12.3",
+    "parcel-bundler": "^1.12.4",
     "parcel-plugin-bundle-visualiser": "^1.2.0",
     "typescript": "^3.4.5"
   },
-  "dependencies": {},
   "peerDependencies": {}
 }
